@@ -76,19 +76,19 @@ jobs:
       run: |
         sed -i "s@ \
         image: yunchae02/front:.*@ \
-        image: yunchae02/front:${{ env.IMAGE_TAG }}@g" deployment.yml
+        image: yunchae02/front:${{ env.IMAGE_TAG }}@g" deploy/deployment.yml
 
     - name: Update Kubernetes Manifest (Backend)
       run: |
         sed -i "s@ \
         image: yunchae02/back:.*@ \
-        image: yunchae02/back:${{ env.IMAGE_TAG }}@g" deployment.yml
+        image: yunchae02/back:${{ env.IMAGE_TAG }}@g" deploy/deployment.yml
 
     # 11. 배포 파일 커밋 및 푸시
     - name: Commit and Push Updated Kubernetes Manifest
       run: |
         git config user.email ${{ env.GIT_EMAIL }}
         git config user.name ${{ env.GIT_NAME }}
-        git add deployment.yml
+        git add deploy/deployment.yml
         git commit -m "Update frontend and backend image tags"
         git push svel test
